@@ -22,7 +22,7 @@ when "2.4.23"
     md5 = 'ff26d47167e271f4de9d3bd194056225'
   else
     url = 'https://www.apachelounge.com/download/VC10/binaries/httpd-2.4.23-win64.zip'
-    md5 =  '84d7465763468d8d47d5c725b3e79171'
+    md5 = '84d7465763468d8d47d5c725b3e79171'
   end
 end
 
