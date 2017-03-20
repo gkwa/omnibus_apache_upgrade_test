@@ -2,9 +2,7 @@ Task default -Depends TestApacheUpgrade
 
 Task TestApacheUpgrade {
 
-    Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' | %{
-        Start-Process -Wait -FilePath msiexec -ArgumentList /X, $_.ProductCode, /qn
-    }
+    uninstall_apache
 
     $httpd_path = "C:\windows\temp\apache-upgrade-test\apache\bin\httpd.exe"
     Assert(!(test-path $httpd_path)) "Expecting $httpd_path should be gone from uninstall"
@@ -42,7 +40,14 @@ Task TestApacheUpgrade {
     Assert('2.4.25' -eq $version) "Expecting apache v2.4.25, but instead got version $version"
 }
 
+function uninstall_apache {
+    Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' | % {
+        Start-Process -Wait -FilePath msiexec -ArgumentList /X, $_.ProductCode, /qn
+    }
+}
+
 Task Clean {
+    uninstall_apache
     rm -ea 0 -recurse pkg
     rm -ea 0 install_apache*.log
 }
