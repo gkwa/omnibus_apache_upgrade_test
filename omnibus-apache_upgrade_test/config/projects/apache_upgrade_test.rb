@@ -30,5 +30,5 @@ exclude "**/.git"
 exclude "**/bundler/git"
 
 package :msi do
-	upgrade_code '650bc54a-bf6f-403e-89e7-49bb2b02b6f5'
+	upgrade_code "650bc54a-bf6f-403e-89e7-49bb2b02b6f5"
 end
