@@ -8,9 +8,8 @@ Task TestApacheUpgrade {
     Assert(!(test-path $httpd_path)) "Expecting $httpd_path should be gone from uninstall"
 
     # apache2.4.23
-    (Get-Content config/software/apache.rb)
-    -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.23"' `
-	  | Set-Content -Encoding ascii config/software/apache.rb
+    (Get-Content config/software/apache.rb) -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.23"' |
+        Set-Content -Encoding ascii config/software/apache.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi = (gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
@@ -24,9 +23,8 @@ Task TestApacheUpgrade {
     Assert('2.4.23' -eq $version) "Expecting apache v2.4.23, but instead got version $version"
 
     # apache2.4.25
-    (Get-Content config/software/apache.rb)
-    -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.25"' `
-	  | Set-Content -Encoding ascii config/software/apache.rb
+    (Get-Content config/software/apache.rb) -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.25"' |
+        Set-Content -Encoding ascii config/software/apache.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi = (gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
@@ -42,8 +40,9 @@ Task TestApacheUpgrade {
 
 function uninstall_apache {
     do {
-        $guid = (Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' | Select-Object -First 1).ProductCode
-        if ($guid) { 
+        $guid = (Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' |
+                Select-Object -First 1).ProductCode
+        if ($guid) {
             Start-Process -Wait -FilePath msiexec -ArgumentList /X, $guid, /qn
         }
     }
