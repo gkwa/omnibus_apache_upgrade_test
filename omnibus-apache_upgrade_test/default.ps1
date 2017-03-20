@@ -2,6 +2,10 @@ Task default -Depends Test1
 
 Task Test1 {
 
+    if(!(Get-ChildItem env: | Out-String -Stream | Select-String opscode)){
+        chef shell-init powershell | Invoke-Expression
+    }
+
     Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' | %{
         Start-Process -Wait -FilePath msiexec -ArgumentList /X, $_.ProductCode, /qn
     }
