@@ -10,9 +10,9 @@ Task Test1 {
     Assert(!(test-path $httpd_path)) "Expecting $httpd_path should be gone from uninstall"
 
     # apache2.4.23
-    (Get-Content config/projects/apache_upgrade_test.rb) `
-	  -replace 'dependency "apache\d+"', 'dependency "apache23"' `
-	  | Set-Content -Encoding ascii config/projects/apache_upgrade_test.rb
+    (Get-Content config/software/apache.rb) `
+	  -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.23"' `
+	  | Set-Content -Encoding ascii config/software/apache.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi=(gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
@@ -26,9 +26,9 @@ Task Test1 {
     Assert('2.4.23' -eq $version) "Expecting apache v2.4.23, but instead got version $version"
 
     # apache2.4.25
-    (Get-Content config/projects/apache_upgrade_test.rb) `
-	  -replace 'dependency "apache\d+"', 'dependency "apache25"' `
-	  | Set-Content -Encoding ascii config/projects/apache_upgrade_test.rb
+    (Get-Content config/software/apache.rb) `
+	  -replace 'default_version "2\.\d+\.\d+"', 'default_version "2.4.25"' `
+	  | Set-Content -Encoding ascii config/software/apache.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi=(gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
