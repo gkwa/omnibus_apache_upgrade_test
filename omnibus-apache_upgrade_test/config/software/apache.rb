@@ -1,5 +1,9 @@
 name "apache"
 default_version "2.4.25"
+skip_transitive_dependency_licensing true
+
+license "Apache License 2.0"
+license_file "Apache24/LICENSE.txt"
 
 zip_basedir='Apache24'
 

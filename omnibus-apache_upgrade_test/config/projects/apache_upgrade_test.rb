@@ -7,6 +7,8 @@
 name "apache-upgrade-test"
 maintainer "Taylor Monacelli"
 homepage "https://github.com/TaylorMonacelli/omnibus_apache_upgrade_test"
+license "Apache License 2.0"
+license_file "LICENSE.txt"
 
 # Defaults to C:/apache_upgrade_test on Windows
 # and /opt/apache_upgrade_test on all other platforms
