@@ -6,19 +6,19 @@ Task Test1 {
         Start-Process -Wait -FilePath msiexec -ArgumentList /X, $_.ProductCode, /qn
     }
 
-    $httpd_path = 'C:\windows\temp\apache-upgrade-test\apache\bin\httpd.exe'
+    $httpd_path = "C:\windows\temp\apache-upgrade-test\apache\bin\httpd.exe"
     Assert(!(test-path $httpd_path)) "Expecting $httpd_path should be gone from uninstall"
 
     # apache2.4.23
-    (Get-Content "config/projects/apache_upgrade_test.rb") `
+    (Get-Content config/projects/apache_upgrade_test.rb) `
 	  -replace 'dependency "apache\d+"', 'dependency "apache23"' `
-	  | Set-Content -Encoding ascii "config/projects/apache_upgrade_test.rb"
+	  | Set-Content -Encoding ascii config/projects/apache_upgrade_test.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi=(gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
-    rm -ea 0 -force "install_apache23.log"
+    rm -ea 0 -force install_apache23.log
     Start-Process -Wait -FilePath msiexec -ArgumentList /i, `
-	  "$msi", /qn, /l*v, "install_apache23.log", PROJECTLOCATION='"C:\windows\temp\apache-upgrade-test"'
+	  "$msi", /qn, /l*v, install_apache23.log, PROJECTLOCATION='C:\windows\temp\apache-upgrade-test'
 
     $output = & "C:\windows\temp\apache-upgrade-test\apache\bin\httpd.exe" -version
     $regex_version = '((\d+\.)?(\d+\.)?(\*|\d+))'
@@ -26,15 +26,15 @@ Task Test1 {
     Assert('2.4.23' -eq $version) "Expecting apache v2.4.23, but instead got version $version"
 
     # apache2.4.25
-    (Get-Content "config/projects/apache_upgrade_test.rb") `
+    (Get-Content config/projects/apache_upgrade_test.rb) `
 	  -replace 'dependency "apache\d+"', 'dependency "apache25"' `
-	  | Set-Content -Encoding ascii "config/projects/apache_upgrade_test.rb"
+	  | Set-Content -Encoding ascii config/projects/apache_upgrade_test.rb
 
     ruby bin/omnibus build apache_upgrade_test --log-level warn
     $msi=(gci $pwd/pkg/apache-upgrade-test*.msi | select fullname -last 1).FullName
-    rm -ea 0 -force "install_apache25.log"
+    rm -ea 0 -force install_apache25.log
     Start-Process -Wait -FilePath msiexec -ArgumentList /i, `
-	  "$msi", /qn, /l*v, "install_apache25.log", PROJECTLOCATION='"C:\windows\temp\apache-upgrade-test"'
+	  "$msi", /qn, /l*v, install_apache25.log, PROJECTLOCATION='C:\windows\temp\apache-upgrade-test'
 
     $output = & "C:\windows\temp\apache-upgrade-test\apache\bin\httpd.exe" -version
     $regex_version = '((\d+\.)?(\d+\.)?(\*|\d+))'
