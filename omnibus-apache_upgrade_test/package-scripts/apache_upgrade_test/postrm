@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Perform necessary apache_upgrade_test removal steps
+# after package is uninstalled.
+#
+
+echo "apache_upgrade_test has been uninstalled!"
+
+exit 0

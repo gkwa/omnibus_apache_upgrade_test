@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Perform necessary apache_upgrade_test setup steps
+# before package is installed.
+#
+
+echo "You're about to install apache_upgrade_test!"
