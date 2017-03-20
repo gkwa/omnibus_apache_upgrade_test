@@ -49,6 +49,12 @@ function uninstall_apache {
     while ($guid)
 }
 
+Task TestApacheUninstalled {
+    $guid = (Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' |
+            Select-Object -First 1).ProductCode
+    Assert($guid -eq $null)
+}
+
 Task Clean {
     uninstall_apache
     rm -ea 0 -recurse pkg
