@@ -19,7 +19,7 @@ build_iteration 1
 dependency "preparation"
 
 # apache_upgrade_test dependencies/components
-dependency "apache"
+dependency "apache25"
 
 # Version manifest file
 dependency "version-manifest"
