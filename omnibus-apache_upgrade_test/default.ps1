@@ -1,6 +1,6 @@
-Task default -Depends Test1
+Task default -Depends TestApacheUpgrade
 
-Task Test1 {
+Task TestApacheUpgrade {
 
     Get-MSIRelatedProductInfo -UpgradeCode '{650bc54a-bf6f-403e-89e7-49bb2b02b6f5}' | %{
         Start-Process -Wait -FilePath msiexec -ArgumentList /X, $_.ProductCode, /qn
