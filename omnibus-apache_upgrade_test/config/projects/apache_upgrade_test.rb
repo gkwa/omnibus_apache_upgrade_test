@@ -4,9 +4,9 @@
 # All Rights Reserved.
 #
 
-name "apache_upgrade_test"
-maintainer "CHANGE ME"
-homepage "https://CHANGE-ME.com"
+name "apache-upgrade-test"
+maintainer "Taylor Monacelli"
+homepage "https://github.com/TaylorMonacelli/omnibus_apache_upgrade_test"
 
 # Defaults to C:/apache_upgrade_test on Windows
 # and /opt/apache_upgrade_test on all other platforms
@@ -19,10 +19,14 @@ build_iteration 1
 dependency "preparation"
 
 # apache_upgrade_test dependencies/components
-# dependency "somedep"
+dependency "apache"
 
 # Version manifest file
 dependency "version-manifest"
 
 exclude "**/.git"
 exclude "**/bundler/git"
+
+package :msi do
+	upgrade_code '650bc54a-bf6f-403e-89e7-49bb2b02b6f5'
+end
